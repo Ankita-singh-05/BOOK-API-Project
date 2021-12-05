@@ -2,8 +2,14 @@ const { response } = require("express");
 const express = require("express");
 const { request } = require("http");
 
+var bodyParser = require("body-parser");
+
 //Database
 const database = require("./Database");
+
+//Body-parser
+booky.use(bodyParser.urlencoded({extended: true}));
+booky.use(bodyParser.json());
 
 //Intialize express
 const booky = express();
@@ -114,5 +120,17 @@ Methods        GET
 booky.get("/publications", (request, response) => {
     return response.json({publications: database.publications});
 });
+
+
+
+//         POST REQUEST
+//Add new books
+/*
+Route          /book/new
+Description    add new books
+Access         public
+Parameter      none
+Methods        POST
+ */
 
 booky.listen(3000, () => console.log("The server is up & running"));

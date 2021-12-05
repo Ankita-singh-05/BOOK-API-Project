@@ -32,3 +32,8 @@
 // -> to get all publications
 // -> to get specific publication -- Assignment
 // -> to get a list of publication based on book -- Assignment
+
+//POST REQUEST --> for posting some data
+// -> add new books
+// -> add new authors
+// -> add new publications
