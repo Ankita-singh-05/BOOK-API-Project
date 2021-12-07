@@ -7,12 +7,13 @@ var bodyParser = require("body-parser");
 //Database
 const database = require("./Database");
 
+//Intialize express
+const booky = express();
+
+
 //Body-parser
 booky.use(bodyParser.urlencoded({extended: true}));
 booky.use(bodyParser.json());
-
-//Intialize express
-const booky = express();
 
 //API to access the books
 /*
@@ -123,7 +124,7 @@ booky.get("/publications", (request, response) => {
 
 
 
-//         POST REQUEST
+//  --------- POST REQUEST ---------- Add New Books -------------
 //Add new books
 /*
 Route          /book/new
@@ -131,6 +132,42 @@ Description    add new books
 Access         public
 Parameter      none
 Methods        POST
- */
+*/
+booky.post("/book/new", (request, response) => {
+    const newBook = request.body;
+    database.books.push(newBook);
+    return response.json({updatedBooks: database.books});
+});
+
+
+//  --------- POST REQUEST ---------- Add New Authors -------------
+//Add new authors
+/*
+Route          /authors/new
+Description    add new books
+Access         public
+Parameter      none
+Methods        POST
+*/
+booky.post("/authors/new", (request, response) => {
+    const newAuthors = request.body;
+    database.authors.push(newAuthors);
+    return response.json({updatedAuthors: database.authors});
+});
+
+//  --------- POST REQUEST ---------- Add New Publications -------------
+//Add new Publication
+/*
+Route          /publication/new
+Description    add new publication
+Access         public
+Parameter      none
+Methods        POST
+*/
+booky.post("/publications/new", (request, response) => {
+    const newPublications = request.body;
+    database.publications.push(newPublications);
+    return response.json({updatedPublications: database.publications});
+});
 
 booky.listen(3000, () => console.log("The server is up & running"));
