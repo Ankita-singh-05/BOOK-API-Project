@@ -37,3 +37,7 @@
 // -> add new books
 // -> add new authors
 // -> add new publications
+
+//PUT REQUETST
+
+//DELETE REQUEST

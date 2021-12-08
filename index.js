@@ -124,7 +124,7 @@ booky.get("/publications", (request, response) => {
 
 
 
-//  --------- POST REQUEST ---------- Add New Books -------------
+//  --------- POST REQUEST ---------- 
 //Add new books
 /*
 Route          /book/new
@@ -140,7 +140,7 @@ booky.post("/book/new", (request, response) => {
 });
 
 
-//  --------- POST REQUEST ---------- Add New Authors -------------
+
 //Add new authors
 /*
 Route          /authors/new
@@ -156,7 +156,7 @@ booky.post("/authors/new", (request, response) => {
 });
 
 
-//  --------- POST REQUEST ---------- Add New Publications -------------
+
 //Add new Publication
 /*
 Route          /publication/new
@@ -170,5 +170,39 @@ booky.post("/publications/new", (request, response) => {
     database.publications.push(newPublications);
     return response.json({updatedPublications: database.publications});
 });
+
+
+//   ------------PUT REQUEST -----------------------
+//Update Publications and books
+/*
+Route          /publications/update/book
+Description    update publications and books
+Access         public
+Parameter      isbn
+Methods        PUT
+*/
+booky.put("/publications/update/book/:isbn", (request, response) => {
+    //update the publication database
+    database.publications.forEach((pub) => {
+        if(pub.id === request.body.pubID){
+            return pub.books.push(request.params.isbn);
+        }
+    });
+
+    //update the books database
+    database.books.forEach((book) => {
+        if(book.isbn == request.params.isbn){
+            book.publications = request.body.pubID;
+            return;
+        }
+    });
+
+    return response.json({
+        books: database.books,
+        publications : database.publications,
+        message: "Successfully updated!"
+    })
+});
+
 
 booky.listen(3000, () => console.log("The server is up & running"));

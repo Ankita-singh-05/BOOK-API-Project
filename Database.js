@@ -6,19 +6,19 @@ const books = [
         language: "en",
         numPage: 250,
         authors: [1,2],
-        publication: [1],
+        publications: [1],
         category: ["education", "tech", "novel", "fantasy"]
-    },
-    {
-        isbn : "Wings of Fire",
-        title: "Getting started with API",
-        pubDate: "2021-04-13",
-        language: ["English", "Hindi", "Marathi"],
-        numPage: 250,
-        authors: [1,2],
-        publication: [1],
-        category: ["Dreamy", "tech", "funny", "fantasy"]
     }
+    // {
+    //     isbn : "Wings of Fire",
+    //     title: "Getting started with API",
+    //     pubDate: "2021-04-13",
+    //     language: ["English", "Hindi", "Marathi"],
+    //     numPage: 250,
+    //     authors: [1,2],
+    //     publications: [1],
+    //     category: ["Dreamy", "tech", "funny", "fantasy"]
+    // }
 ];
 
 const authors= [
@@ -39,6 +39,11 @@ const publications = [
         id: 1,
         name: "Rich Dad Poor Dad",
         books: ["1234Book"]
+    },
+    {
+        id: 2,
+        name: "Rich Dad Poor Dad2",
+        books: []
     }
 ];
 
