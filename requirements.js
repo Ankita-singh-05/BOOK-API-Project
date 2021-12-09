@@ -39,7 +39,8 @@
 // -> add new publications
 
 //PUT REQUEST
-
-
+// -> update publications and books
 
 //DELETE REQUEST
+// -> delete a book
+// -> delete an author from a book and vice versa
