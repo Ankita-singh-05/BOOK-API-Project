@@ -214,7 +214,6 @@ Access         public
 Parameter      isbn
 Methods        DELETE
 */
-
 booky.delete("/book/delete/:isbn", (request, response) => {
     const updateBookDatabase = database.books.filter(
         (book) => book.isbn !== request.params.isbn
@@ -224,5 +223,45 @@ booky.delete("/book/delete/:isbn", (request, response) => {
 
     return response.json({books: database.books});
 });
+
+//Delete an author from a book and a vice versa
+/*
+Route          /book/delete/author
+Description    Delete an author from a book & vice versa
+Access         public
+Parameter      isbn, authorId
+Methods        DELETE
+*/
+booky.delete("/book/delete/author/:isbn/:authorId", (request, response) => {
+    //Update the book Database
+    database.books.forEach((book) => {
+        if(book.isbn === request.params.isbn){
+            const newAuthorList = book.authors.filter(
+              (eachAuthor) => eachAuthor !== parseInt(request.params.authorId)  
+            );
+            book.authors = newAuthorList;
+            return;
+        }
+    });
+
+    //Update the author Database
+    database.authors.forEach((eachAuthor) => {
+        if(eachAuthor.id === parseInt(request.params.authorId)){
+            const newBookList = eachAuthor.books.filter(
+                (book) => book !== request.params.isbn
+            );
+            eachAuthor.books = newBookList;
+            return;
+        }
+    });
+
+    return response.json({
+        books: database.books,
+        author: database.authors,
+        message: "Author & Book were successfully deleted!!"
+    });
+});
+
+
 
 booky.listen(3000, () => console.log("The server is up & running"));
