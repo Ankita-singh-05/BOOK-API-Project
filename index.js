@@ -73,6 +73,29 @@ booky.get("/c/:category", (request, response) => {
     return response.json({book: getSpecificBook});
 });
 
+//API to get a list of books based on languages
+/*
+Route          /book/:language
+Description    Get list of books based on languages
+Access         public
+Parameter      language
+Methods        GET
+*/
+booky.get("/book/:language", (request, response) => {
+    const specificLanguageBook = database.books.filter(
+        (book) => book.language.includes(request.params.language)
+    );
+
+    if (specificLanguageBook.length === 0){
+        return response.json({
+            error: `No book found with language of ${request.params.language}`
+        });
+    }
+    
+    return response.json({book: specificLanguageBook});
+});
+
+
 
 //API to get all Authors
 /*
@@ -94,7 +117,7 @@ Description    Get all authors based on a book
 Access         public
 Parameter      isbn
 Methods        GET
- */
+*/
 booky.get("/author/book/:isbn", (request, response) => {
     const getSpecificAuthor = database.authors.filter(
         (author) => author.books.includes(request.params.isbn)
@@ -108,6 +131,15 @@ booky.get("/author/book/:isbn", (request, response) => {
     
     return response.json({authors: getSpecificAuthor});
 });
+
+//API to get a list of authors based on books
+/*
+Route          /author/book
+Description    get a list of authors based on books
+Access         public
+Parameter      isbn
+Methods        GET
+*/
 
 
 //API TO GET PUBLICATIONS
