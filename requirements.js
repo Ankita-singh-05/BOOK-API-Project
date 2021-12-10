@@ -19,13 +19,13 @@
 //=> to get all the books
 // => to get specific book based on isbn number
 // => to get a list of books based on category
-// => to get a list of books based on languages   -- Assignment
+// => to get a list of books based on languages   -- Assignment  --- done
 
 //   AUTHORS
 //we need API for the following
 // -> to get all authors
 // -> to get specific author
-// -> to get a list of authors based on books -- Assignment
+// -> to get a list of authors based on books -- Assignment  --- half done
 
 //PUBLICATIONs
 //we need API for the following

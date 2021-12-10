@@ -132,7 +132,7 @@ booky.get("/author/book/:isbn", (request, response) => {
     return response.json({authors: getSpecificAuthor});
 });
 
-//API to get a list of authors based on books
+//API to get a list of authors based on books    ---------------------------TO CHANGE-------------
 /*
 Route          /author/book
 Description    get a list of authors based on books
@@ -140,6 +140,18 @@ Access         public
 Parameter      isbn
 Methods        GET
 */
+booky.get("authors/:isbn", (request, response) => {
+    const authorsList = database.authors.filter(
+        (author) => author.books.includes(request.params.isbn)
+    );
+
+    if(authorsList.length === 0){
+        return response.json({
+            error: `No authors found with book ${request.params.isbn}`
+        })
+    }
+    return response.json({author: database.authorsList});
+});
 
 
 //API TO GET PUBLICATIONS
@@ -153,7 +165,6 @@ Methods        GET
 booky.get("/publications", (request, response) => {
     return response.json({publications: database.publications});
 });
-
 
 
 //  --------- POST REQUEST ---------- 
