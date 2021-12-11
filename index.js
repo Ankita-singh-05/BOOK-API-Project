@@ -15,8 +15,7 @@ booky.use(bodyParser.urlencoded({extended: true}));
 booky.use(bodyParser.json());
 
 // Establish database Connection
-mongoose.connect("mongodb+srv://Ankita:shapeai123@shapeai.53n1g.mongodb.net/Booky?retryWrites=true&w=majority"
-).then(() => console.log("Connection is established!!"))
+mongoose.connect("mongodb+srv://Ankita:shapeai123@shapeai.53n1g.mongodb.net/Booky?retryWrites=true&w=majority").then(() => console.log("Connection is established!!"));
 
 //API to access the books
 /*
