@@ -52,18 +52,24 @@ Access         public
 Parameter      ISBN
 Methods        GET
  */
-booky.get("/is/:isbn", (request, response) => {
-    const getSpecificBook = database.books.filter(
+booky.get("/is/:isbn", async (request, response) => {
+    const getSpecificBook = await BookModel.findOne({isbn: request.params.isbn});
+    
+    if (!getSpecificBook){
+        return response.json({
+            error: `No book found with ISBN of ${request.params.isbn}`
+        });
+    }
+    return response.json(getSpecificBook);
+    /* const getSpecificBook = database.books.filter(
         (book) => book.isbn === request.params.isbn
-    );
-
+    ); 
     if (getSpecificBook.length === 0){
         return response.json({
             error: `No book found with ISBN of ${request.params.isbn}`
         });
     }
-    
-    return response.json({book: getSpecificBook});
+    return response.json({book: getSpecificBook}); */
 });
 
 
@@ -75,18 +81,20 @@ Access         public
 Parameter      Category
 Methods        GET
  */
-booky.get("/c/:category", (request, response) => {
-    const getSpecificBook = database.books.filter(
-        (book) => book.category.includes(request.params.category)
-    );
+booky.get("/c/:category", async (request, response) => {
+    const getSpecificBook = await BookModel.findOne({category: request.params.category});
+    //const getSpecificBook = database.books.filter(
+        //(book) => book.category.includes(request.params.category));
 
-    if (getSpecificBook.length === 0){
+/*if no spefic book is returned then the findOne func returns null, and to execute the 
+Not found property we have to make the condition inside if true, !null is true */
+    if (!getSpecificBook){
         return response.json({
             error: `No book found with category of ${request.params.category}`
         });
     }
     
-    return response.json({book: getSpecificBook});
+    return response.json({getSpecificBook});
 });
 
 //API to get a list of books based on languages
@@ -121,8 +129,9 @@ Access         public
 Parameter      none
 Methods        GET
  */
-booky.get("/authors", (request, response) => {
-    return response.json({authors : database.authors})
+booky.get("/authors", async (request, response) => {
+    const getAllAuthors = await AuthorModel.find();
+    return response.json(getAllAuthors)
 });
 
 
@@ -134,12 +143,13 @@ Access         public
 Parameter      isbn
 Methods        GET
 */
-booky.get("/author/book/:isbn", (request, response) => {
-    const getSpecificAuthor = database.authors.filter(
+booky.get("/author/book/:isbn", async (request, response) => {
+    const getSpecificAuthor = await AuthorModel.findOne({books: request.params.isbn});
+    /*const getSpecificAuthor = database.authors.filter(
         (author) => author.books.includes(request.params.isbn)
-    );
+    ); */
 
-    if (getSpecificAuthor.length === 0){
+    if (!getSpecificAuthor){
         return response.json({
             error: `No book found for isbn of ${request.params.isbn} name`
         });
@@ -178,8 +188,10 @@ Access         public
 Parameter      none
 Methods        GET
  */
-booky.get("/publications", (request, response) => {
-    return response.json({publications: database.publications});
+booky.get("/publications", async (request, response) => {
+    const getAllPublication = await PublicationModel.find({});
+    return response.json(getAllPublication);
+    //return response.json({publications: database.publications});
 });
 
 
@@ -320,7 +332,6 @@ booky.delete("/book/delete/author/:isbn/:authorId", (request, response) => {
         message: "Author & Book were successfully deleted!!"
     });
 });
-
 
 
 booky.listen(3000, () => console.log("The server is up & running"));
