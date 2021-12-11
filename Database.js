@@ -49,3 +49,5 @@ const publications = [
 
 // to export the database
 module.exports = {books, authors, publications};
+
+//Mongoose - Validation

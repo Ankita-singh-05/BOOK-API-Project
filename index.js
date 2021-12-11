@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { response } = require("express");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -8,6 +9,11 @@ var bodyParser = require("body-parser");
 //Database
 const database = require("./Database");
 
+//Importing Models
+const BookModel = require("./database/book");
+const AuthorModel = require("./database/author");
+const PublicationModel = require("./database/publication");
+
 //Intialize express
 const booky = express();
 //Body-parser
@@ -15,7 +21,9 @@ booky.use(bodyParser.urlencoded({extended: true}));
 booky.use(bodyParser.json());
 
 // Establish database Connection
-mongoose.connect("mongodb+srv://Ankita:shapeai123@shapeai.53n1g.mongodb.net/Booky?retryWrites=true&w=majority").then(() => console.log("Connection is established!!"));
+mongoose.connect(
+    process.env.MONGO_URL
+).then(() => console.log("Connection is established!!"));
 
 //API to access the books
 /*
@@ -25,10 +33,16 @@ Access         public
 Parameter      none
 Methods        GET
  */
+/*
 booky.get("/", (request, response) => {
     return response.json({data: database.books});
 });
+*/
 
+booky.get("/", async (request, response) => {
+    const getAllBooks = await BookModel.find();
+    return response.json(getAllBooks);
+});
 
 //API to get specific book based on isbn number   localhost:3000/1234book
 /*
