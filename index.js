@@ -86,14 +86,13 @@ booky.get("/c/:category", async (request, response) => {
     //const getSpecificBook = database.books.filter(
         //(book) => book.category.includes(request.params.category));
 
-/*if no spefic book is returned then the findOne func returns null, and to execute the 
-Not found property we have to make the condition inside if true, !null is true */
+    /*if no spefic book is returned then the findOne func returns null, and to execute the 
+    Not found property we have to make the condition inside if true, !null is true */
     if (!getSpecificBook){
         return response.json({
             error: `No book found with category of ${request.params.category}`
         });
     }
-    
     return response.json({getSpecificBook});
 });
 
@@ -131,7 +130,7 @@ Methods        GET
  */
 booky.get("/authors", async (request, response) => {
     const getAllAuthors = await AuthorModel.find();
-    return response.json(getAllAuthors)
+    return response.json(getAllAuthors);
 });
 
 
@@ -153,9 +152,8 @@ booky.get("/author/book/:isbn", async (request, response) => {
         return response.json({
             error: `No book found for isbn of ${request.params.isbn} name`
         });
-    }
-    
-    return response.json({authors: getSpecificAuthor});
+    }   
+    return response.json(getSpecificAuthor);
 });
 
 //API to get a list of authors based on books    ---------------------------TO CHANGE-------------
@@ -189,7 +187,7 @@ Parameter      none
 Methods        GET
  */
 booky.get("/publications", async (request, response) => {
-    const getAllPublication = await PublicationModel.find({});
+    const getAllPublication = await PublicationModel.find();
     return response.json(getAllPublication);
     //return response.json({publications: database.publications});
 });
