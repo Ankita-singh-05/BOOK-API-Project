@@ -6,7 +6,7 @@ const books = [
         language: "English",
         numPage: 250,
         authors: [1,2],
-        publications: [1],
+        publications: 1,
         category: ["education", "tech", "novel", "fantasy"]
     },
     {

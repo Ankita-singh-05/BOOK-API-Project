@@ -202,10 +202,14 @@ Access         public
 Parameter      none
 Methods        POST
 */
-booky.post("/book/new", (request, response) => {
-    const newBook = request.body;
-    database.books.push(newBook);
-    return response.json({updatedBooks: database.books});
+booky.post("/book/new", async (request, response) => {
+    const { newBook } = request.body; 
+    const addNewBook = BookModel.create(newBook);
+    //database.books.push(newBook);
+    return response.json({
+        books: addNewBook,
+        message: "Book was added!"
+    });
 });
 
 
@@ -218,10 +222,14 @@ Access         public
 Parameter      none
 Methods        POST
 */
-booky.post("/authors/new", (request, response) => {
-    const newAuthors = request.body;
-    database.authors.push(newAuthors);
-    return response.json({updatedAuthors: database.authors});
+booky.post("/authors/new", async (request, response) => {
+    const { newAuthor } = request.body;
+    const addNewAuthor = AuthorModel.create(newAuthor);
+    //database.authors.push(newAuthors);
+    return response.json({
+        author: addNewAuthor,
+        message: "Author added successfully!!"
+    });
 });
 
 
