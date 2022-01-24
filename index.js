@@ -193,6 +193,25 @@ booky.get("/publications", async (request, response) => {
 });
 
 
+//GET SPECIFIC PUBLICATION
+/*
+Route          /p/publications
+Description    GET SPECIFIC PUBLICATION
+Access         Public
+Parameters     id
+Methods        GET
+*/
+booky.get("/p/publications/:id", async(req, res) => {
+    const getapub = await PublicationModel.findOne({ id: req.params.id })
+    if (!getapub) {
+        return res.json({
+            error: `No publication found for id of ${req.params.id}`
+        });
+    }
+    return res.json(getapub);
+});
+
+
 //  --------- POST REQUEST ---------- 
 //Add new books
 /*
